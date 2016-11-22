@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/umnglobalmessage/db" VERSION="20160516" COMMENT="XMLDB file for Moodle local/umnglobalmessage"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_umnglobalmessage" COMMENT="Stores all messages.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the message"/>
+        <FIELD NAME="message" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Content of the message"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Description of the message"/>
+        <FIELD NAME="css" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="CSS of the message"/>
+        <FIELD NAME="target" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Where on Moodle the message will target."/>
+        <FIELD NAME="othertarget" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="Where on Moodle the message will target."/>
+        <FIELD NAME="version" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Current version of the message."/>
+        <FIELD NAME="dismissing" TYPE="int" LENGTH="4" NOTNULL="false" SEQUENCE="false" COMMENT="What method to display the dismissing icons."/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="4" NOTNULL="false" SEQUENCE="false" COMMENT="Whether or not the message is enabled"/>
+        <FIELD NAME="datestart" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Date that the message will begin displaying."/>
+        <FIELD NAME="dateend" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Date that the message will end playing"/>
+        <FIELD NAME="frequency" TYPE="int" LENGTH="4" NOTNULL="false" SEQUENCE="false" COMMENT="Whether the message will display each session or once"/>
+        <FIELD NAME="hasend" TYPE="int" LENGTH="4" NOTNULL="false" SEQUENCE="false" COMMENT="Whether or not the message has an end date."/>
+        <FIELD NAME="popup" TYPE="int" LENGTH="4" NOTNULL="false" SEQUENCE="false" COMMENT="Whether or not the message displays as a popup"/>
+        <FIELD NAME="userrole" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false" COMMENT="User role to target"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="local_umnglobalmessage_users" COMMENT="Contains the fields for the users who have hidden messages">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
+        <FIELD NAME="messageid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Message ID"/>
+        <FIELD NAME="dismissversion" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Time stamp of the message displayed"/>
+        <FIELD NAME="notifyversion" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Time stamp of the message that was sent in notification"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="user_message" UNIQUE="true" FIELDS="userid, messageid" COMMENT="Index for interaction with this table."/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
